@@ -6,10 +6,6 @@ import statsmodels.api as sms
 import seaborn as sns
 from scipy.special import erfinv
 
-import logging
-
-log = logging.getLogger("my-logger")
-
 
 def wiener_plot(x, h, a, b, end):
     W = [x]
@@ -38,12 +34,14 @@ def wiener_times_out(x, h, a, b, end):
     return T
 
 
-def run():
+def run(M, N, X, h, a, b, end, log):
+    log.info(f"Starting")
     output = []
     for i, x in enumerate(X):
         T = []
-        for i in range(M):
+        for _ in range(M):
             T.append(wiener_plot(x, h, a, b, end))
         output.append(np.mean(T))
-        log.info(f"Computed run {i}/{N}")
+        log.info(f"Computed run {i+1}/{N}")
+    log.info(f"Done")
     return output
