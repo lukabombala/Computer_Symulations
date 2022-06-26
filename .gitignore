@@ -6,3 +6,5 @@
 .idea/vcs.xml
 .idea/inspectionProfiles/Project_Default.xml
 __pycache__/functions.cpython-310.pyc
+__pycache__/config.cpython-310.pyc
+data/

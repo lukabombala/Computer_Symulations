@@ -1,3 +1,5 @@
+from datetime import datetime
+import config
 import numpy.random as rnd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,6 +7,8 @@ import scipy.stats as stats
 import statsmodels.api as sms
 import seaborn as sns
 from scipy.special import erfinv
+import pandas as pd
+import time
 
 
 def wiener_plot(x, h, a, b, end):
@@ -34,7 +38,7 @@ def wiener_times_out(x, h, a, b, end):
     return T
 
 
-def run(M, N, X, h, a, b, end, log):
+def run(M, N, X, h, a, b, end, log, save=False):
     log.info(f"Starting")
     output = []
     for i, x in enumerate(X):
@@ -42,6 +46,19 @@ def run(M, N, X, h, a, b, end, log):
         for _ in range(M):
             T.append(wiener_plot(x, h, a, b, end))
         output.append(np.mean(T))
-        log.info(f"Computed run {i+1}/{N}")
+        log.info(f"Computed run {i + 1}/{N} ( {100 * (i + 1) / N}% )")
     log.info(f"Done")
+
+    if save:
+        to_csv(data=output,
+               index=X,
+               cols=["time"])
     return output
+
+
+def to_csv(index, data, cols):
+    df = pd.DataFrame(data,
+                      index=index,
+                      columns=cols)
+    filename = config.SAVE_DIR + "output" + datetime.now().strftime("%Y%m%d-%H%M%S") + ".csv"
+    df.to_csv(filename)
