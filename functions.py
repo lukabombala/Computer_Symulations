@@ -4,7 +4,6 @@ import numpy.random as rnd
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
-import statsmodels.api as sms
 import seaborn as sns
 from scipy.special import erfinv
 import pandas as pd
