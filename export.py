@@ -9,7 +9,6 @@ log = logging.getLogger("plots")
 if config.LOGGING:
     logging.basicConfig(level=logging.INFO)
 
-filename = "output20220626-130418.csv"
 
 def ex_plot(filename):
     data = pd.read_csv(f"{config.SAVE_DIR}{filename}")
@@ -20,6 +19,8 @@ def ex_plot(filename):
                                         "ex_plot",
                                          config.PLOT_EXT)
     plt.savefig(outname)
-    log.info(f"Saved to file {outname}")
+    log.info(f\n"Saved to file {outname}")
 
+
+filename = "ex_output20220626-174642.csv"
 ex_plot(filename)
